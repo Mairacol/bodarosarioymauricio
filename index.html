@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="format-detection" content="telephone=no">
+    <title>Nuestra Boda | 28.11.2026</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts for wedding typography style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+
+<!-- INTRODUCCIÓN SOLO CON BOTÓN -->
+<div id="intro-overlay" class="intro-overlay">
+
+    <!-- FASE 1: Botón inicial para interactuar y activar música -->
+    <div id="start-step" class="start-step">
+        <button id="btnOpenInvitation" class="editorial-agendar-link" type="button">
+            ABRIR INVITACIÓN 
+        </button>
+    </div>
+
+    <!-- FASE 2: Contenedor oculto requerido por el script (vacío para evitar errores) -->
+    <div id="intro-content" class="intro-content hidden-step"></div>
+
+</div>
+
+<!-- REPRODUCTOR DE MÚSICA DE FONDO -->
+<div class="music-player-floating">
+    <audio id="bgMusic" loop preload="auto">
+        <source src="images/chachacha.m4a" type="audio/mp4">
+        Tu navegador no soporta audio.
+    </audio>
+    <button id="musicToggleBtn" class="music-btn" title="Pausar / Reproducir música">
+        <i id="musicIcon" class="fa-solid fa-music"></i>
+        <span id="musicText">Música</span>
+    </button>
+</div>
+
+<!-- CONTENIDO PRINCIPAL DE LA INVITACIÓN -->
+<main class="main-container">
+<section class="hero-section">
+    
+    <!-- HOJAS VERDES DECORATIVAS (Esquinas) -->
+    <div class="botanic-leaf leaf-top-left"></div>
+    <div class="botanic-leaf leaf-bottom-right"></div>
+
+    <!-- BLOQUE CENTRAL -->
+    <div class="hero-content-box">
+        
+        <div class="hero-names-group">
+            <h1 class="hero-names">
+                Rosario <span class="ampersand-inline">&</span> Mauricio
+            </h1>
+        </div>
+
+        <div class="hero-illustration-container">
+            <img src="images/acuarela-Photoroom.png" alt="Rosario y Mauricio" class="hero-illustration">
+        </div>
+
+    </div>
+    
+    <!-- INDICADOR DE SCROLL FIJO ABAJO -->
+    <div class="scroll-indicator">
+        <span id="txtScroll">DESLIZAR</span>
+        <div class="scroll-line"></div>
+    </div>
+
+</section>
+<!-- =========================================
+   SECCIÓN FRASE / PRÓXIMO CAPÍTULO
+   ========================================= -->
+<section class="quote-editorial-section reveal">
+    <div class="quote-editorial-container">
+        
+        <!-- 1. Ilustración superior -->
+        <div class="quote-illustration-wrapper">
+            <img src="images/perrito.png" alt="Ilustración Próximo Capítulo" class="quote-illus-img">
+        </div>
+
+        <!-- 2. Texto editorial -->
+        <h3 class="quote-main-text">
+            El próximo capítulo de nuestra historia comienza...
+        </h3>
+        <p class="quote-sub-text">
+            Y queremos que seas parte
+        </p>
+
+    </div>
+</section>
+<!-- SECCIÓN DE REVELACIÓN: ILUSTRACIÓN + FECHA + CUENTA REGRESIVA + ACCIÓN -->
+<section class="reveal-section reveal">
+    
+    <!-- ILUSTRACIÓN ANIMADA -->
+    <div class="hero-illustration">
+        <img src="images/anillosacua-Photoroom.png" alt="Ilustración Boda" class="illustration-img">
+    </div>
+
+    <!-- BLOQUE EDITORIAL: FECHA, CUENTA REGRESIVA Y ACCIÓN -->
+    <div class="hero-date-action-block">
+        
+        <!-- 1. LA FECHA -->
+        <div class="hero-date-script" id="txtHeroDate">
+            06 . 02 . 2027
+        </div>
+
+        <!-- 2. LA CUENTA REGRESIVA -->
+        <div class="countdown-container">
+            <div class="countdown-item">
+                <span id="days" class="countdown-number">00</span>
+                <span class="countdown-label">DÍAS</span>
+            </div>
+            <span class="countdown-separator">/</span>
+            <div class="countdown-item">
+                <span id="hours" class="countdown-number">00</span>
+                <span class="countdown-label">HS</span>
+            </div>
+            <span class="countdown-separator">/</span>
+            <div class="countdown-item">
+                <span id="minutes" class="countdown-number">00</span>
+                <span class="countdown-label">MIN</span>
+            </div>
+            <span class="countdown-separator">/</span>
+            <div class="countdown-item">
+                <span id="seconds" class="countdown-number">00</span>
+                <span class="countdown-label">SEG</span>
+            </div>
+        </div>
+
+        <!-- 3. BOTÓN AGENDAR FECHA -->
+        <div class="hero-agendar-wrapper">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Rosario+%26+Mauricio&dates=20270206T160000Z%2F20270207T040000Z&details=%C2%A1Te+invitamos+a+celebrar+nuestra+boda!&location=Buenos+Aires" 
+               target="_blank" 
+               class="editorial-agendar-link"
+               id="txtAgendar"
+               title="Agregar a mi calendario">
+                AGENDAR FECHA 
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================
+   SECCIÓN LUGAR Y UBICACIÓN (DINÁMICA POR LINK)
+   ========================================= -->
+<section class="venue-editorial-section reveal">
+    
+    <!-- BLOQUE DÍA 1: CIVIL Y CEREMONIA (Solo se muestra si la URL tiene ?venue=cyf) -->
+    <div class="venue-editorial-container venue-civil-block" style="display: none;">
+        
+        <!-- Fecha del Día 1 -->
+        <div class="hero-date-script" style="margin-bottom: -5px;">
+           05 . 02 . 2027
+        </div>
+
+        <!-- Registro Civil -->
+        <div class="venue-logo-wrapper" style="margin-top: 10px;">
+            <img src="images/iglesiaarym-Photoroom.png" alt="Registro Civil" class="venue-logo-img">
+        </div>
+        <h2 class="venue-title">Registro Civil</h2>
+        <p class="venue-text">Av. Bartolomé Mitre 3188, Moreno<br><span style="font-size: 0.8rem; opacity: 0.8;">(Entre Rivadavia y Tte. Oscar Camilli)</span></p>
+        <div class="venue-link-wrapper">
+            <a href="https://maps.app.goo.gl/vT9cZ8zXj4u2... (reemplazar link de maps civil)" target="_blank" class="editorial-map-link" title="Ver mapa del Registro Civil">
+                VER MAPA CIVIL
+            </a>
+        </div>
+
+        <!-- Separador interno sutil entre civil e iglesia -->
+        <div style="width: 40px; height: 1px; background: var(--olive-soft); opacity: 0.3; margin: 20px 0;"></div>
+
+        <!-- Iglesia / Parroquia -->
+        <h2 class="venue-title" style="font-size: 1.4rem;">Ceremonia Religiosa</h2>
+        <p class="venue-text">Parroquia San José Obrero<br>México 774, Moreno</p>
+        <div class="venue-link-wrapper">
+            <a href="https://maps.app.goo.gl/vT9cZ8zXj4u2... (reemplazar link de maps iglesia)" target="_blank" class="editorial-map-link" title="Ver mapa de la Parroquia">
+                VER MAPA IGLESIA
+            </a>
+        </div>
+
+    </div>
+
+    <!-- BLOQUE DÍA 2: FIESTA / QUINTA (Visible para todos los que abran su invitación) -->
+    <div class="venue-editorial-container venue-fiesta-block">
+        
+        <!-- Fecha del Día 2 -->
+        <div class="hero-date-script" style="margin-bottom: -5px;">
+             06 . 02 . 2027
+        </div>
+
+        <div class="venue-logo-wrapper" style="margin-top: 10px;">
+            <img src="images/quinta-Photoroom.png" alt="Quinta Los Galpones" class="venue-logo-img larger-logo">
+        </div>
+        <h2 class="venue-title">Quinta Los Galpones</h2>
+        <p class="venue-text" id="txtVenueDesc"> <br>17:00 hs</p>
+        <div class="venue-link-wrapper">
+            <a href="https://maps.app.goo.gl/3S4tzLSLaTLVGQG59" target="_blank" class="editorial-map-link" id="txtVerMapa" title="Ver mapa en Google Maps">
+                VER MAPA FIESTA
+            </a>
+        </div>
+    </div>
+
+</section>
+
+<!-- =========================================
+    SECCIÓN CRONOGRAMA - ILUSTRACIONES EDITORIAL
+  
+<section class="cronograma-section reveal">
+    
+    <div class="editorial-ribbon ribbon-top-left"></div>
+    <div class="editorial-ribbon ribbon-top-right"></div>
+
+    <div class="cronograma-container">
+        
+        <span class="cronograma-subtitle" id="txtCronogramaSub">EL GRAN DÍA</span>
+        <h2 class="cronograma-title-script" id="txtCronogramaTitle">Cronograma</h2>
+
+        <div class="free-timeline">
+            
+            <div class="timeline-block block-with-illustration">
+                <div class="block-content">
+                    <span class="block-time">17:30 hs</span>
+                    <h3 class="block-event" id="txtEv1">Recepción</h3>
+                </div>
+                <div class="illustration-wrap illus-left-recepcion">
+                    <img src="/images/recepcion-removebg-preview.png" alt="Recepción" class="illus-img">
+                </div>
+            </div>
+
+            
+            <div class="timeline-block block-with-illustration">
+                <div class="block-content">
+                    <span class="block-time">18:00 hs</span>
+                    <h3 class="block-event" id="txtEv2">Ceremonia</h3>
+                </div>
+                <div class="illustration-wrap illus-right">
+                    <img src="/images/ceremonia.png" alt="Ceremonia" class="illus-img">
+                </div>
+            </div>
+
+        
+            <div class="timeline-block block-with-illustration">
+                <div class="block-content">
+                    <span class="block-time">20:30 hs</span>
+                    <h3 class="block-event" id="txtEv3">Cena & Fiesta</h3>
+                </div>
+                <div class="illustration-wrap illus-left-large">
+                    <img src="/images/cena.png" alt="Cena" class="illus-img">
+                </div>
+                <div class="illustration-wrap illus-right-disco">
+                    <img src="/images/bolaboliche-removebg-preview.png" alt="Fiesta" class="illus-img">
+                </div>
+            </div>
+
+          
+            <div class="timeline-block block-with-illustration block-cierre">
+                <div class="block-content">
+                    <span class="block-time">02:30 hs</span>
+                    <h3 class="block-event" id="txtEv4">Cierre</h3>
+                </div>
+                <div class="illustration-wrap illus-bottom-cierre">
+                    <img src="/images/Gemini_Generated_Image_bymhzybymhzybymh-removebg-preview.png" alt="Cierre" class="illus-img">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+ ========================================= -->
+<!-- =========================================
+   SECCIÓN DRESS CODE (ELEGANTE SPORT + CONSEJO)
+   ========================================= -->
+<section class="dresscode-section reveal">
+    <div class="dresscode-container">
+        
+        <!-- Título principal -->
+        <h2 class="dresscode-title-script" id="txtDressTitle">Dress Code</h2>
+        
+        <!-- Concepto -->
+        <p class="dresscode-main-type" id="txtDressType">Elegante Sport</p>
+
+        <!-- Contenedor de la única ilustración central -->
+        <div class="dresscode-single-wrapper">
+            <img src="images/elegantesport-Photoroom.png" alt="Dress Code Elegante Sport" class="dresscode-single-illus">
+        </div>
+
+        <!-- Nota sutil para el calzado -->
+        <p class="dresscode-tip">
+            Como hay sectores de césped y parque, sugerimos a las invitadas elegir tacos anchos, plataformas o zapatos cómodos para disfrutar del jardín sin inconvenientes.
+        </p>
+
+    </div>
+</section>
+<!-- =========================================
+    SECCIÓN MÚSICA & PLAYLIST DE SPOTIFY
+    ========================================= -->
+<section class="spotify-section reveal">
+    <div class="spotify-container">
+        
+        <h2 class="spotify-title-script">Playlist</h2>
+        <p class="spotify-desc" id="txtSpotifyDesc">Queremos que nos ayudes a elegir esos temukis que no pueden faltarle a la fiesta! </p>
+
+        <div class="spotify-action-wrapper">
+            <a href="https://open.spotify.com/playlist/47y48JLaYx1no3uB8DnpLA?si=e5Qhjo6GT7qnPg8smHn55A" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="editorial-spotify-link" 
+               id="txtSpotifyBtn" 
+               title="Sumar canciones a la playlist">
+                SUGERIR CANCIÓN
+            </a>
+        </div>
+
+        <!-- Reproductor de Spotify integrado -->
+        <div class="spotify-player-wrapper">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/47y48JLaYx1no3uB8DnpLA?utm_source=generator&si=a0f0b9df96374e22" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>        </div>
+    </div>
+</section>
+
+<!-- =========================================
+SECCIÓN REGALOS
+========================================= -->
+<section class="gifts-section reveal">
+    <div class="gifts-container">
+        
+        <h2 class="gifts-title-script" id="txtGiftsTitle">Regalos</h2>
+          <div class="gifts-illustration-wrapper">
+            <img src="images/lunademiel-Photoroom.png" alt="Regalos y Luna de Miel" class="gifts-illus-img">
+        </div>
+        <p class="gifts-intro" id="txtGiftsDesc">
+          El mejor regalo es compartir este día con ustedes, pero si quieren hacernos un presente, pueden ayudarnos a crear recuerdos en nuestra luna de miel
+        </p>
+        
+        <div class="gifts-links-wrapper">
+            
+            <!-- Opción Cuentas Bancarias Argentina -->
+            <div class="gift-accordion-item">
+                <button class="gift-trigger-link" onclick="toggleGiftDetails('nacional')" id="txtBtnNac">
+                    VER DATOS BANCARIOS 
+                </button>
+                <div id="gift-nacional" class="gift-details hidden">
+                    
+                    <!-- Cuenta Pesos -->
+                    <p class="gift-account-header"><strong>Caja de Ahorro en Pesos ($)</strong></p>
+                    <p><span>Banco:</span> [Nombre del Banco]</p>
+                    <p><span>Alias:</span> [Alias.Cbu]</p>
+                    <p><span>CBU:</span> [Número de CBU]</p>
+                    <p><span>N° de Cuenta:</span> [Número de Cuenta]</p>
+                    <p><span>Titular:</span> [Nombre del Titular]</p>
+                    <p><span>CUIT/CUIL:</span> [CUIT]</p>
+
+                    <br>
+
+                    <!-- Cuenta Dólares -->
+                    <p class="gift-account-header"><strong>Caja de Ahorro en Dólares (U$S)</strong></p>
+                    <p><span>Banco:</span> [Nombre del Banco]</p>
+                    <p><span>Alias:</span> [Alias.Cbu.Usd]</p>
+                    <p><span>CBU:</span> [Número de CBU]</p>
+                    <p><span>N° de Cuenta:</span> [Número de Cuenta]</p>
+                    <p><span>Titular:</span> [Nombre del Titular]</p>
+                    <p><span>CUIT/CUIL:</span> [CUIT]</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- =========================================
+    SECCIÓN RSVP (CONFIRMACIÓN DE ASISTENCIA)
+    ========================================= -->
+<section class="rsvp reveal" id="rsvpSection" style="display: none;">
+  <div class="container">
+    <div class="rsvp-inner">
+      
+      <div class="card">
+          <span class="guest-label" id="txtGuestLabel">Invitados</span>
+          <h3 id="familyName"></h3>
+          <p id="slots"></p>
+      </div>
+
+      <div class="rsvp-header-block">
+        <span class="rsvp-subtitle" id="txtRsvpSub">ASISTENCIA</span>
+        <h2 class="title-script">RSVP</h2>
+        <p class="limit" id="txtRsvpLimit">Confirmar antes del 15 de Septiembre 2026</p>
+      </div>
+
+      <div id="guests"></div>
+      
+      <p id="formError" class="form-error hidden" style="display: none;">Por favor completá los campos obligatorios.</p>
+
+      <div style="display:none !important;" aria-hidden="true">
+        <input type="text" id="validationCode" name="validation_code" tabindex="-1" autocomplete="off">
+      </div>
+      
+      <button id="submitBtn" class="editorial-submit-btn">ENVIAR CONFIRMACIÓN</button>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL DE AGRADECIMIENTO -->
+<div id="thanksModal" class="modal hidden">
+    <div class="modal-content">
+        <h3>¡Muchas gracias!</h3>
+        <p>Tu respuesta ha sido registrada con éxito.</p>
+        <button onclick="closeThanksModal()" class="modal-btn">Cerrar</button>
+    </div>
+</div>
+
+</main>
+
+<!-- =========================================
+    SECCIÓN: COMPARTIR FOTOS (DRIVE)
+    ========================================= -->
+<section class="photo-upload-section reveal" id="photoSection">
+  <div class="container">
+  <div class="photo-upload-inner">
+    <span class="section-subtitle" id="txtPhotoSub">RECUERDOS</span>
+    <h2 class="photo-title" id="txtPhotoTitle">Subir fotos de la boda</h2>
+    <p class="photo-desc" id="txtPhotoDesc">
+        Queremos revivir nuestro día a través de sus ojos. Compartinos las fotos y videos que saquen durante la celebración.
+    </p>
+    <a href="https://photos.app.goo.gl/5ske4nk8ThvRkerPA" target="_blank" rel="noopener noreferrer" class="editorial-drive-btn" id="txtPhotoBtn">
+        <i class="fa-solid fa-cloud-arrow-up"></i> SUBIR FOTOS
+    </a>
+  </div>
+  </div>
+</section>
+
+<footer>
+    <p><span id="footer-credito">Una experiencia creada por</span> <a href="https://atelierinvitaciones.com/" target="_blank" rel="noopener">Atelier Invitaciones</a></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
