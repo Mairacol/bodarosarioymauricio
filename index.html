@@ -58,7 +58,8 @@
 
 <!-- CONTENIDO PRINCIPAL DE LA INVITACIÓN -->
 <main class="main-container">
-<section class="hero-section">
+
+<section class="hero-section reveal">
     
     <!-- HOJAS VERDES DECORATIVAS (Esquinas) -->
     <div class="botanic-leaf leaf-top-left"></div>
@@ -86,6 +87,7 @@
     </div>
 
 </section>
+
 <!-- =========================================
    SECCIÓN FRASE / PRÓXIMO CAPÍTULO
    ========================================= -->
@@ -107,6 +109,7 @@
 
     </div>
 </section>
+
 <!-- SECCIÓN DE REVELACIÓN: ILUSTRACIÓN + FECHA + CUENTA REGRESIVA + ACCIÓN -->
 <section class="reveal-section reveal">
     
@@ -166,44 +169,39 @@
    ========================================= -->
 <section class="venue-editorial-section reveal">
     
-    <!-- BLOQUE DÍA 1: CIVIL Y CEREMONIA (Solo se muestra si la URL tiene ?venue=cyf) -->
+    <!-- BLOQUE DÍA 1: CIVIL Y CEREMONIA -->
     <div class="venue-editorial-container venue-civil-block" style="display: none;">
         
-        <!-- Fecha del Día 1 -->
         <div class="hero-date-script" style="margin-bottom: -5px;">
            05 . 02 . 2027
         </div>
 
-        <!-- Registro Civil -->
         <div class="venue-logo-wrapper" style="margin-top: 10px;">
             <img src="images/iglesiaarym-Photoroom.png" alt="Registro Civil" class="venue-logo-img">
         </div>
         <h2 class="venue-title">Registro Civil</h2>
         <p class="venue-text">Av. Bartolomé Mitre 3188, Moreno<br><span style="font-size: 0.8rem; opacity: 0.8;">(Entre Rivadavia y Tte. Oscar Camilli)</span></p>
         <div class="venue-link-wrapper">
-            <a href="https://maps.app.goo.gl/vT9cZ8zXj4u2... (reemplazar link de maps civil)" target="_blank" class="editorial-map-link" title="Ver mapa del Registro Civil">
+            <a href="https://maps.app.goo.gl/vT9cZ8zXj4u2..." target="_blank" class="editorial-map-link" title="Ver mapa del Registro Civil">
                 VER MAPA CIVIL
             </a>
         </div>
 
-        <!-- Separador interno sutil entre civil e iglesia -->
         <div style="width: 40px; height: 1px; background: var(--olive-soft); opacity: 0.3; margin: 20px 0;"></div>
 
-        <!-- Iglesia / Parroquia -->
         <h2 class="venue-title" style="font-size: 1.4rem;">Ceremonia Religiosa</h2>
         <p class="venue-text">Parroquia San José Obrero<br>México 774, Moreno</p>
         <div class="venue-link-wrapper">
-            <a href="https://maps.app.goo.gl/vT9cZ8zXj4u2... (reemplazar link de maps iglesia)" target="_blank" class="editorial-map-link" title="Ver mapa de la Parroquia">
+            <a href="https://maps.app.goo.gl/vT9cZ8zXj4u2..." target="_blank" class="editorial-map-link" title="Ver mapa de la Parroquia">
                 VER MAPA IGLESIA
             </a>
         </div>
 
     </div>
 
-    <!-- BLOQUE DÍA 2: FIESTA / QUINTA (Visible para todos los que abran su invitación) -->
+    <!-- BLOQUE DÍA 2: FIESTA / QUINTA -->
     <div class="venue-editorial-container venue-fiesta-block">
         
-        <!-- Fecha del Día 2 -->
         <div class="hero-date-script" style="margin-bottom: -5px;">
              06 . 02 . 2027
         </div>
@@ -223,97 +221,28 @@
 </section>
 
 <!-- =========================================
-    SECCIÓN CRONOGRAMA - ILUSTRACIONES EDITORIAL
-  
-<section class="cronograma-section reveal">
-    
-    <div class="editorial-ribbon ribbon-top-left"></div>
-    <div class="editorial-ribbon ribbon-top-right"></div>
-
-    <div class="cronograma-container">
-        
-        <span class="cronograma-subtitle" id="txtCronogramaSub">EL GRAN DÍA</span>
-        <h2 class="cronograma-title-script" id="txtCronogramaTitle">Cronograma</h2>
-
-        <div class="free-timeline">
-            
-            <div class="timeline-block block-with-illustration">
-                <div class="block-content">
-                    <span class="block-time">17:30 hs</span>
-                    <h3 class="block-event" id="txtEv1">Recepción</h3>
-                </div>
-                <div class="illustration-wrap illus-left-recepcion">
-                    <img src="/images/recepcion-removebg-preview.png" alt="Recepción" class="illus-img">
-                </div>
-            </div>
-
-            
-            <div class="timeline-block block-with-illustration">
-                <div class="block-content">
-                    <span class="block-time">18:00 hs</span>
-                    <h3 class="block-event" id="txtEv2">Ceremonia</h3>
-                </div>
-                <div class="illustration-wrap illus-right">
-                    <img src="/images/ceremonia.png" alt="Ceremonia" class="illus-img">
-                </div>
-            </div>
-
-        
-            <div class="timeline-block block-with-illustration">
-                <div class="block-content">
-                    <span class="block-time">20:30 hs</span>
-                    <h3 class="block-event" id="txtEv3">Cena & Fiesta</h3>
-                </div>
-                <div class="illustration-wrap illus-left-large">
-                    <img src="/images/cena.png" alt="Cena" class="illus-img">
-                </div>
-                <div class="illustration-wrap illus-right-disco">
-                    <img src="/images/bolaboliche-removebg-preview.png" alt="Fiesta" class="illus-img">
-                </div>
-            </div>
-
-          
-            <div class="timeline-block block-with-illustration block-cierre">
-                <div class="block-content">
-                    <span class="block-time">02:30 hs</span>
-                    <h3 class="block-event" id="txtEv4">Cierre</h3>
-                </div>
-                <div class="illustration-wrap illus-bottom-cierre">
-                    <img src="/images/Gemini_Generated_Image_bymhzybymhzybymh-removebg-preview.png" alt="Cierre" class="illus-img">
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
- ========================================= -->
-<!-- =========================================
-   SECCIÓN DRESS CODE (ELEGANTE SPORT + CONSEJO)
+   SECCIÓN DRESS CODE
    ========================================= -->
 <section class="dresscode-section reveal">
     <div class="dresscode-container">
         
-        <!-- Título principal -->
         <h2 class="dresscode-title-script" id="txtDressTitle">Dress Code</h2>
-        
-        <!-- Concepto -->
         <p class="dresscode-main-type" id="txtDressType">Elegante Sport</p>
 
-        <!-- Contenedor de la única ilustración central -->
         <div class="dresscode-single-wrapper">
             <img src="images/elegantesport-Photoroom.png" alt="Dress Code Elegante Sport" class="dresscode-single-illus">
         </div>
 
-        <!-- Nota sutil para el calzado -->
         <p class="dresscode-tip">
             Como hay sectores de césped y parque, sugerimos a las invitadas elegir tacos anchos, plataformas o zapatos cómodos para disfrutar del jardín sin inconvenientes.
         </p>
 
     </div>
 </section>
+
 <!-- =========================================
-    SECCIÓN MÚSICA & PLAYLIST DE SPOTIFY
-    ========================================= -->
+   SECCIÓN MÚSICA & PLAYLIST DE SPOTIFY
+   ========================================= -->
 <section class="spotify-section reveal">
     <div class="spotify-container">
         
@@ -331,15 +260,15 @@
             </a>
         </div>
 
-        <!-- Reproductor de Spotify integrado -->
         <div class="spotify-player-wrapper">
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/47y48JLaYx1no3uB8DnpLA?utm_source=generator&si=a0f0b9df96374e22" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>        </div>
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/47y48JLaYx1no3uB8DnpLA?utm_source=generator&si=a0f0b9df96374e22" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>       
+        </div>
     </div>
 </section>
 
 <!-- =========================================
-SECCIÓN REGALOS
-========================================= -->
+   SECCIÓN REGALOS
+   ========================================= -->
 <section class="gifts-section reveal">
     <div class="gifts-container">
         
@@ -353,14 +282,12 @@ SECCIÓN REGALOS
         
         <div class="gifts-links-wrapper">
             
-            <!-- Opción Cuentas Bancarias Argentina -->
             <div class="gift-accordion-item">
                 <button class="gift-trigger-link" onclick="toggleGiftDetails('nacional')" id="txtBtnNac">
                     VER DATOS BANCARIOS 
                 </button>
                 <div id="gift-nacional" class="gift-details hidden">
                     
-                    <!-- Cuenta Pesos -->
                     <p class="gift-account-header"><strong>Caja de Ahorro en Pesos ($)</strong></p>
                     <p><span>Banco:</span> [Nombre del Banco]</p>
                     <p><span>Alias:</span> [Alias.Cbu]</p>
@@ -371,7 +298,6 @@ SECCIÓN REGALOS
 
                     <br>
 
-                    <!-- Cuenta Dólares -->
                     <p class="gift-account-header"><strong>Caja de Ahorro en Dólares (U$S)</strong></p>
                     <p><span>Banco:</span> [Nombre del Banco]</p>
                     <p><span>Alias:</span> [Alias.Cbu.Usd]</p>
@@ -388,8 +314,8 @@ SECCIÓN REGALOS
 </section>
 
 <!-- =========================================
-    SECCIÓN RSVP (CONFIRMACIÓN DE ASISTENCIA)
-    ========================================= -->
+   SECCIÓN RSVP (CONFIRMACIÓN DE ASISTENCIA)
+   ========================================= -->
 <section class="rsvp reveal" id="rsvpSection" style="display: none;">
   <div class="container">
     <div class="rsvp-inner">
@@ -431,8 +357,8 @@ SECCIÓN REGALOS
 </main>
 
 <!-- =========================================
-    SECCIÓN: COMPARTIR FOTOS (DRIVE)
-    ========================================= -->
+   SECCIÓN: COMPARTIR FOTOS (DRIVE)
+   ========================================= -->
 <section class="photo-upload-section reveal" id="photoSection">
   <div class="container">
   <div class="photo-upload-inner">

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const doorContainer = document.getElementById("intro-door-container");
     const btnOpen = document.getElementById("btnOpenInvitation");
     
-    // Música (Asegúrate de que tu <audio> en el HTML tenga id="bgMusic")
+    // Música
     const bgMusic = document.getElementById("bgMusic");
     const musicToggleBtn = document.getElementById("musicToggleBtn");
     const musicIcon = document.getElementById("musicIcon");
@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==========================================
     // 2. APERTURA DE LA INVITACIÓN (EFECTO PUERTA)
     // ==========================================
-   if (btnOpen) {
+    if (btnOpen) {
         btnOpen.addEventListener("click", function () {
             
-            // A. Activar la animación de apertura de puertas
+            // A. Activar la animación de apertura de puertas y desvanecimiento de postal
             if (doorContainer) doorContainer.classList.add("door-opening");
             if (startStep) startStep.classList.add("opening-animation");
 
@@ -36,18 +36,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
 
-            // C. Desvanecer el overlay completo al terminar
+            // C. Desvanecer el overlay completo al terminar la animación
             setTimeout(() => {
                 if (introOverlay) introOverlay.classList.add("overlay-hidden");
             }, 1000);
 
-            // D. Remover del DOM
+            // D. Remover del DOM y activar animaciones de scroll
             setTimeout(() => {
                 if (introOverlay) introOverlay.remove();
                 triggerScrollAnimations();
+                checkScroll();
             }, 1200);
         });
     }
+
 
     // ==========================================
     // 3. CONTROL DE MÚSICA (BOTÓN FLOTANTE)
@@ -131,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const civilBlock = document.querySelector('.venue-civil-block');
     const rsvpSection = document.getElementById("rsvpSection");
 
-    // A. Lógica de Locaciones (Civil vs Fiesta)
     if (civilBlock) {
         if (venueParam === "cyf") {
             civilBlock.style.display = "flex";
@@ -140,7 +141,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // B. Gestión de RSVP personalizado por invitado
     if (guestParam && rsvpSection) {
         rsvpSection.style.display = "block";
         
@@ -179,15 +179,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==========================================
     function triggerScrollAnimations() {
         const reveals = document.querySelectorAll(".reveal");
-        reveals.forEach(element => {
-            element.classList.add("active");
-        });
+        // Activa la primera sección de golpe al abrir
+        if (reveals.length > 0) {
+            reveals[0].classList.add("active");
+        }
     }
 
     function checkScroll() {
         const reveals = document.querySelectorAll(".reveal");
         const windowHeight = window.innerHeight;
-        const elementVisible = 150;
+        const elementVisible = 120;
 
         reveals.forEach(element => {
             const elementTop = element.getBoundingClientRect().top;
