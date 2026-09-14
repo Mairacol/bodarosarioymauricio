@@ -18,38 +18,29 @@
     <link rel="manifest" href="site.webmanifest">
 </head>
 <body>
-<!-- INTRODUCCIÓN CON EFECTO DE PUERTA E IMAGEN VISIBLE -->
+<!-- INTRODUCCIÓN CON EFECTO DE PUERTA A PANTALLA COMPLETA -->
 <div id="intro-overlay" class="intro-overlay">
 
-    <!-- FASE 1: Imagen y Botón visibles antes de abrir -->
-    <div id="start-step" class="start-step">
+    <!-- Contenedor de las puertas de pantalla completa -->
+    <div id="intro-door-container" class="intro-door-container">
         
-        <!-- Contenedor de la imagen postal estática -->
+        <!-- Panel Izquierdo de la Puerta -->
+        <div class="door-panel door-left"></div>
+        
+        <!-- Panel Derecho de la Puerta -->
+        <div class="door-panel door-right"></div>
+        
+    </div>
+
+    <!-- Contenido central (La postal con la ilustración y el botón) -->
+    <div id="start-step" class="start-step">
         <div class="intro-preview-image">
             <img src="images/ellos.png" alt="Portada Invitación">
         </div>
 
-        <!-- Botón abajo de la imagen -->
         <button id="btnOpenInvitation" class="editorial-agendar-link" type="button">
             ABRIR INVITACIÓN 
         </button>
-    </div>
-
-    <!-- FASE 2: Contenedor de las puertas -->
-    <div id="intro-door-container" class="intro-door-container hidden-step">
-        
-        <!-- (Aquí estaba el "¡Bienvenidos!", ya removido) -->
-
-        <!-- Puerta Izquierda -->
-        <div class="door-panel door-left">
-            <img src="images/ellos.png" alt="Puerta Izquierda">
-        </div>
-        
-        <!-- Puerta Derecha -->
-        <div class="door-panel door-right">
-            <img src="images/ellos.png" alt="Puerta Derecha">
-        </div>
-        
     </div>
 
 </div>

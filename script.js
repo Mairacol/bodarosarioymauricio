@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==========================================
     // 2. APERTURA DE LA INVITACIÓN (EFECTO PUERTA)
     // ==========================================
-    if (btnOpen) {
+   if (btnOpen) {
         btnOpen.addEventListener("click", function () {
             
-            // A. Ocultar botón inicial y mostrar las puertas
-            if (startStep) startStep.classList.add("hidden-step");
-            if (doorContainer) doorContainer.classList.remove("hidden-step");
+            // A. Activar la animación de apertura de puertas
+            if (doorContainer) doorContainer.classList.add("door-opening");
+            if (startStep) startStep.classList.add("opening-animation");
 
             // B. Reproducir música
             if (bgMusic) {
@@ -32,28 +32,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     isPlaying = true;
                     updateMusicButtonState();
                 }).catch(error => {
-                    console.log("El navegador bloqueó la reproducción automática de audio:", error);
+                    console.log("Audio bloqueado:", error);
                 });
             }
 
-            // C. Activar la animación de apertura de puertas tras un breve respiro
-            setTimeout(() => {
-                if (doorContainer) doorContainer.classList.add("door-opening");
-            }, 150);
-
-            // D. Desvanecer por completo el overlay tras la animación
+            // C. Desvanecer el overlay completo al terminar
             setTimeout(() => {
                 if (introOverlay) introOverlay.classList.add("overlay-hidden");
-            }, 1600);
+            }, 1000);
 
-            // E. Remover el overlay del DOM y activar animaciones de scroll
+            // D. Remover del DOM
             setTimeout(() => {
                 if (introOverlay) introOverlay.remove();
                 triggerScrollAnimations();
-            }, 2400);
+            }, 1200);
         });
     }
-
 
     // ==========================================
     // 3. CONTROL DE MÚSICA (BOTÓN FLOTANTE)
