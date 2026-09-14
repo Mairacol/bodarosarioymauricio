@@ -1,28 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
     
     // ==========================================
-    // 1. APERTURA DE LA INVITACIÓN Y MÚSICA
+    // 1. VARIABLES GENERALES Y ELEMENTOS
     // ==========================================
     const introOverlay = document.getElementById("intro-overlay");
+    const startStep = document.getElementById("start-step");
+    const doorContainer = document.getElementById("intro-door-container");
     const btnOpen = document.getElementById("btnOpenInvitation");
+    
+    // Música (Asegúrate de que tu <audio> en el HTML tenga id="bgMusic")
     const bgMusic = document.getElementById("bgMusic");
     const musicToggleBtn = document.getElementById("musicToggleBtn");
     const musicIcon = document.getElementById("musicIcon");
     const musicText = document.getElementById("musicText");
-
     let isPlaying = false;
 
+
+    // ==========================================
+    // 2. APERTURA DE LA INVITACIÓN (EFECTO PUERTA)
+    // ==========================================
     if (btnOpen) {
         btnOpen.addEventListener("click", function () {
-            // Ocultar la pantalla de presentación
-            if (introOverlay) {
-                introOverlay.style.opacity = "0";
-                setTimeout(() => {
-                    introOverlay.style.display = "none";
-                }, 800);
-            }
+            
+            // A. Ocultar botón inicial y mostrar las puertas
+            if (startStep) startStep.classList.add("hidden-step");
+            if (doorContainer) doorContainer.classList.remove("hidden-step");
 
-            // Reproducir música de fondo
+            // B. Reproducir música
             if (bgMusic) {
                 bgMusic.play().then(() => {
                     isPlaying = true;
@@ -32,12 +36,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
 
-            // Activar animaciones de revelación iniciales si las hay
-            triggerScrollAnimations();
+            // C. Activar la animación de apertura de puertas tras un breve respiro
+            setTimeout(() => {
+                if (doorContainer) doorContainer.classList.add("door-opening");
+            }, 150);
+
+            // D. Desvanecer por completo el overlay tras la animación
+            setTimeout(() => {
+                if (introOverlay) introOverlay.classList.add("overlay-hidden");
+            }, 1600);
+
+            // E. Remover el overlay del DOM y activar animaciones de scroll
+            setTimeout(() => {
+                if (introOverlay) introOverlay.remove();
+                triggerScrollAnimations();
+            }, 2400);
         });
     }
 
-    // Botón flotante para pausar / reproducir música
+
+    // ==========================================
+    // 3. CONTROL DE MÚSICA (BOTÓN FLOTANTE)
+    // ==========================================
     if (musicToggleBtn && bgMusic) {
         musicToggleBtn.addEventListener("click", function () {
             if (isPlaying) {
@@ -63,10 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
     // ==========================================
-    // 2. CUENTA REGRESIVA (Hastas el Día 1 / 5 de Febrero)
+    // 4. CUENTA REGRESIVA (5 de Febrero de 2027)
     // ==========================================
-    // Fecha objetivo: 5 de Febrero de 2027 (o la fecha principal que configures)
     const eventDate = new Date("February 5, 2027 00:00:00").getTime();
 
     function updateCountdown() {
@@ -74,10 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const distance = eventDate - now;
 
         if (distance < 0) {
-            document.getElementById("days").textContent = "00";
-            document.getElementById("hours").textContent = "00";
-            document.getElementById("minutes").textContent = "00";
-            document.getElementById("seconds").textContent = "00";
+            setCountdownValues("00", "00", "00", "00");
             return;
         }
 
@@ -86,124 +103,50 @@ document.addEventListener("DOMContentLoaded", function () {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+        setCountdownValues(
+            String(days).padStart(2, '0'),
+            String(hours).padStart(2, '0'),
+            String(minutes).padStart(2, '0'),
+            String(seconds).padStart(2, '0')
+        );
+    }
+
+    function setCountdownValues(d, h, m, s) {
         const daysElem = document.getElementById("days");
         const hoursElem = document.getElementById("hours");
         const minutesElem = document.getElementById("minutes");
         const secondsElem = document.getElementById("seconds");
 
-        if (daysElem) daysElem.textContent = String(days).padStart(2, '0');
-        if (hoursElem) hoursElem.textContent = String(hours).padStart(2, '0');
-        if (minutesElem) minutesElem.textContent = String(minutes).padStart(2, '0');
-        if (secondsElem) secondsElem.textContent = String(seconds).padStart(2, '0');
+        if (daysElem) daysElem.textContent = d;
+        if (hoursElem) hoursElem.textContent = h;
+        if (minutesElem) minutesElem.textContent = m;
+        if (secondsElem) secondsElem.textContent = s;
     }
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // ==========================================
-    // 3. DESPLIEGUE DE DATOS BANCARIOS (REGALOS)
-    // ==========================================
-    window.toggleGiftDetails = function(type) {
-        const detailsElem = document.getElementById("gift-" + type);
-        if (detailsElem) {
-            detailsElem.classList.toggle("hidden");
-        }
-    };
 
     // ==========================================
-    // 4. ANIMACIONES AL HACER SCROLL (REVEAL)
-    // ==========================================
-    function triggerScrollAnimations() {
-        const reveals = document.querySelectorAll(".reveal");
-        reveals.forEach(element => {
-            element.classList.add("active");
-        });
-    }
-
-    function checkScroll() {
-        const reveals = document.querySelectorAll(".reveal");
-        const windowHeight = window.innerHeight;
-        const elementVisible = 150;
-
-        reveals.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            if (elementTop < windowHeight - elementVisible) {
-                element.classList.add("active");
-            }
-        });
-    }
-
-    window.addEventListener("scroll", checkScroll);
-    checkScroll(); // Comprobar al cargar por si elementos ya son visibles
-
-    // ==========================================
-    // 5. GESTIÓN DE RSVP (Dinamismo por URL / Parámetros)
+    // 5. GESTIÓN DE URL (CIVIL, RSVP E INVITADOS)
     // ==========================================
     const urlParams = new URLSearchParams(window.location.search);
-    const guestParam = urlParams.get("invitado") || urlParams.get("code");
-    const rsvpSection = document.getElementById("rsvpSection");
-
-    if (guestParam) {
-        if (rsvpSection) rsvpSection.style.display = "block";
-        
-        // Simulación de carga de invitados personalizados
-        const familyNameElem = document.getElementById("familyName");
-        const slotsElem = document.getElementById("slots");
-        const guestsContainer = document.getElementById("guests");
-
-        if (familyNameElem) familyNameElem.textContent = decodeURIComponent(guestParam);
-        if (slotsElem) slotsElem.textContent = "Lugares reservados: 2";
-
-        if (guestsContainer) {
-            guestsContainer.innerHTML = `
-                <div class="guest-input-group" style="margin-bottom: 20px; text-align: left;">
-                    <label style="display: block; font-size: 0.85rem; margin-bottom: 5px;">Asistencia:</label>
-                    <select class="guest-attendance" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); background: var(--bg-color);">
-                        <option value="yes">¡Sí, ahí estaré!</option>
-                        <option value="no">No podré asistir</option>
-                    </select>
-                </div>
-            `;
-        }
-    }
-
-    const submitBtn = document.getElementById("submitBtn");
-    if (submitBtn) {
-        submitBtn.addEventListener("click", function () {
-            const thanksModal = document.getElementById("thanksModal");
-            if (thanksModal) thanksModal.classList.remove("hidden");
-        });
-    }
-
-});
-
-// Función para cerrar el modal de agradecimiento
-function closeThanksModal() {
-    const thanksModal = document.getElementById("thanksModal");
-    if (thanksModal) thanksModal.classList.add("hidden");
-}
-// ==========================================
-    // 5. GESTIÓN DE UBICACIONES Y RSVP POR URL
-    // ==========================================
-    const urlParams = new URLSearchParams(window.location.search);
-    const venueParam = urlParams.get("venue"); // Lee el parámetro ?venue=...
+    const venueParam = urlParams.get("venue");
     const guestParam = urlParams.get("invitado") || urlParams.get("code");
     
     const civilBlock = document.querySelector('.venue-civil-block');
     const rsvpSection = document.getElementById("rsvpSection");
 
-    // A. LÓGICA DE LOCACIONES (Civil vs Fiesta)
+    // A. Lógica de Locaciones (Civil vs Fiesta)
     if (civilBlock) {
         if (venueParam === "cyf") {
-            // Si el link tiene ?venue=cyf, mostramos el civil (la fiesta ya se muestra sola)
             civilBlock.style.display = "flex";
         } else {
-            // Si no tiene ?venue=cyf (es un invitado solo a fiesta), ocultamos el civil
             civilBlock.style.display = "none";
         }
     }
 
-    // B. GESTIÓN DE RSVP (Personalizado por invitado)
+    // B. Gestión de RSVP personalizado por invitado
     if (guestParam && rsvpSection) {
         rsvpSection.style.display = "block";
         
@@ -227,3 +170,56 @@ function closeThanksModal() {
             `;
         }
     }
+
+    const submitBtn = document.getElementById("submitBtn");
+    if (submitBtn) {
+        submitBtn.addEventListener("click", function () {
+            const thanksModal = document.getElementById("thanksModal");
+            if (thanksModal) thanksModal.classList.remove("hidden");
+        });
+    }
+
+
+    // ==========================================
+    // 6. ANIMACIONES AL HACER SCROLL (REVEAL)
+    // ==========================================
+    function triggerScrollAnimations() {
+        const reveals = document.querySelectorAll(".reveal");
+        reveals.forEach(element => {
+            element.classList.add("active");
+        });
+    }
+
+    function checkScroll() {
+        const reveals = document.querySelectorAll(".reveal");
+        const windowHeight = window.innerHeight;
+        const elementVisible = 150;
+
+        reveals.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            if (elementTop < windowHeight - elementVisible) {
+                element.classList.add("active");
+            }
+        });
+    }
+
+    window.addEventListener("scroll", checkScroll);
+    checkScroll();
+
+}); // Fin del DOMContentLoaded
+
+
+// ==========================================
+// 7. FUNCIONES GLOBALES (FUERA DEL DOM)
+// ==========================================
+function closeThanksModal() {
+    const thanksModal = document.getElementById("thanksModal");
+    if (thanksModal) thanksModal.classList.add("hidden");
+}
+
+window.toggleGiftDetails = function(type) {
+    const detailsElem = document.getElementById("gift-" + type);
+    if (detailsElem) {
+        detailsElem.classList.toggle("hidden");
+    }
+};

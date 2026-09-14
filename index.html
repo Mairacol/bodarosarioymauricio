@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <meta name="format-detection" content="telephone=no">
-    <title>Nuestra Boda | 28.11.2026</title>
+    <title>Rosario & Mauricio | 06.02.2027</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Google Fonts for wedding typography style -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,22 +18,41 @@
     <link rel="manifest" href="site.webmanifest">
 </head>
 <body>
-
-<!-- INTRODUCCIÓN SOLO CON BOTÓN -->
+<!-- INTRODUCCIÓN CON EFECTO DE PUERTA E IMAGEN VISIBLE -->
 <div id="intro-overlay" class="intro-overlay">
 
-    <!-- FASE 1: Botón inicial para interactuar y activar música -->
+    <!-- FASE 1: Imagen y Botón visibles antes de abrir -->
     <div id="start-step" class="start-step">
+        
+        <!-- Contenedor de la imagen postal estática -->
+        <div class="intro-preview-image">
+            <img src="images/ellos.png" alt="Portada Invitación">
+        </div>
+
+        <!-- Botón abajo de la imagen -->
         <button id="btnOpenInvitation" class="editorial-agendar-link" type="button">
             ABRIR INVITACIÓN 
         </button>
     </div>
 
-    <!-- FASE 2: Contenedor oculto requerido por el script (vacío para evitar errores) -->
-    <div id="intro-content" class="intro-content hidden-step"></div>
+    <!-- FASE 2: Contenedor de las puertas -->
+    <div id="intro-door-container" class="intro-door-container hidden-step">
+        
+        <!-- (Aquí estaba el "¡Bienvenidos!", ya removido) -->
+
+        <!-- Puerta Izquierda -->
+        <div class="door-panel door-left">
+            <img src="images/ellos.png" alt="Puerta Izquierda">
+        </div>
+        
+        <!-- Puerta Derecha -->
+        <div class="door-panel door-right">
+            <img src="images/ellos.png" alt="Puerta Derecha">
+        </div>
+        
+    </div>
 
 </div>
-
 <!-- REPRODUCTOR DE MÚSICA DE FONDO -->
 <div class="music-player-floating">
     <audio id="bgMusic" loop preload="auto">
