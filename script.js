@@ -22,11 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (btnOpen) {
         btnOpen.addEventListener("click", function () {
             
-            // A. Activar la animación de apertura de puertas y desvanecimiento de postal
             if (doorContainer) doorContainer.classList.add("door-opening");
             if (startStep) startStep.classList.add("opening-animation");
 
-            // B. Reproducir música
             if (bgMusic) {
                 bgMusic.play().then(() => {
                     isPlaying = true;
@@ -36,12 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
 
-            // C. Desvanecer el overlay completo al terminar la animación
             setTimeout(() => {
                 if (introOverlay) introOverlay.classList.add("overlay-hidden");
             }, 1000);
 
-            // D. Remover del DOM y activar animaciones de scroll
             setTimeout(() => {
                 if (introOverlay) introOverlay.remove();
                 triggerScrollAnimations();
@@ -363,11 +359,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const currentScroll = window.scrollY;
 
+            // 1. Guardar en memoria que ya confirmó
             localStorage.setItem(`rsvp_confirmed_${displayTitle}`, "true");
-            limpiarInterfazRsvp();
+
+            // 2. Desaparecer el formulario y mostrar mensaje de éxito en su lugar
+            const rsvpInner = document.querySelector('.rsvp-inner');
+            if (rsvpInner) {
+                rsvpInner.innerHTML = `
+                    <div style="text-align: center; padding: 80px 20px;">
+                        <h3 style="font-family: var(--font-script); color: var(--text-charcoal); font-size: 3.5rem; margin-bottom: 15px; font-weight: 300;">
+                            ¡Muchas Gracias!
+                        </h3>
+                        <p style="color: var(--olive-soft); font-size: 0.95rem; font-family: var(--font-serif); letter-spacing: 2px; font-style: italic; font-weight: 300;">
+                            Tu respuesta ya fue registrada con éxito.
+                        </p>
+                    </div>
+                `;
+            }
+
+            // 3. Abrir el modal flotante para que el usuario decida cuándo cerrarlo
             mostrarModalAgradecimiento();
+
             window.scrollTo({ top: currentScroll, behavior: 'instant' });
 
+            // 4. Enviar datos a Google Sheets en segundo plano
             setTimeout(() => {
                 const payload = {
                     familia: displayTitle,
@@ -387,23 +402,8 @@ document.addEventListener("DOMContentLoaded", function () {
             return false;
         });
     }
-function limpiarInterfazRsvp() {
-        const rsvpInner = document.querySelector('.rsvp-inner');
-        
-        if (rsvpInner) {
-            // Vaciamos todo el contenido interno de la tarjeta RSVP de un solo golpe
-            rsvpInner.innerHTML = `
-                <div style="text-align: center; padding: 60px 20px;">
-                    <h3 style="font-family: var(--font-script); color: var(--text-charcoal); font-size: 3.5rem; margin-bottom: 15px; font-weight: 300;">
-                        ¡Muchas Gracias!
-                    </h3>
-                    <p style="color: var(--olive-soft); font-size: 0.9rem; font-family: var(--font-serif); letter-spacing: 2px; font-style: italic; font-weight: 300;">
-                        Tu respuesta ya fue registrada con éxito.
-                    </p>
-                </div>
-            `;
-        }
-    }
+
+
     // ==========================================
     // 7. ANIMACIONES AL HACER SCROLL (REVEAL)
     // ==========================================
@@ -438,13 +438,17 @@ function limpiarInterfazRsvp() {
 // ==========================================
 function closeThanksModal() {
     const thanksModal = document.getElementById("thanksModal");
-    if (thanksModal) thanksModal.classList.add("hidden");
+    if (thanksModal) {
+        thanksModal.classList.add("hidden");
+        thanksModal.style.display = "none"; // Asegura que se oculte por completo
+    }
 }
 
 function mostrarModalAgradecimiento() {
     const thanksModal = document.getElementById("thanksModal");
     if (thanksModal) {
         thanksModal.classList.remove("hidden");
+        thanksModal.style.display = "flex"; // Asegura que aparezca centrado
     }
 }
 
