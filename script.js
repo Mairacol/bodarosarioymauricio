@@ -387,34 +387,23 @@ document.addEventListener("DOMContentLoaded", function () {
             return false;
         });
     }
-
-    function limpiarInterfazRsvp() {
-        const guestsContainerEl = document.getElementById("guests");
-        const submitButtonEl = document.getElementById("submitBtn");
-        const headerBlockEl = document.querySelector(".rsvp-header-block");
-        const cardHeaderEl = document.querySelector(".rsvp-inner > .card");
-
-        if (guestsContainerEl) guestsContainerEl.style.display = "none";
-        if (submitButtonEl) submitButtonEl.style.display = "none";
-        if (headerBlockEl) headerBlockEl.style.display = "none";
-        if (cardHeaderEl) cardHeaderEl.style.display = "none";
-
+function limpiarInterfazRsvp() {
         const rsvpInner = document.querySelector('.rsvp-inner');
-        if (rsvpInner && !document.getElementById("graciasExito")) {
-            const mensajeDiv = document.createElement("div");
-            mensajeDiv.id = "graciasExito";
-            mensajeDiv.style.cssText = "text-align: center; padding: 40px 20px;";
-            mensajeDiv.innerHTML = `
-                <h3 style="font-family: var(--font-script); color: var(--text-charcoal); font-size: 2.8rem; margin-bottom: 15px; letter-spacing: 1px;">
-                    ¡Muchas Gracias!
-                </h3>
-                <p style="color: var(--olive-soft); font-size: 1.1rem; font-family: var(--font-serif); letter-spacing: 1px; font-style: italic;">Tu respuesta ya fue registrada con éxito.</p>
+        
+        if (rsvpInner) {
+            // Vaciamos todo el contenido interno de la tarjeta RSVP de un solo golpe
+            rsvpInner.innerHTML = `
+                <div style="text-align: center; padding: 60px 20px;">
+                    <h3 style="font-family: var(--font-script); color: var(--text-charcoal); font-size: 3.5rem; margin-bottom: 15px; font-weight: 300;">
+                        ¡Muchas Gracias!
+                    </h3>
+                    <p style="color: var(--olive-soft); font-size: 0.9rem; font-family: var(--font-serif); letter-spacing: 2px; font-style: italic; font-weight: 300;">
+                        Tu respuesta ya fue registrada con éxito.
+                    </p>
+                </div>
             `;
-            rsvpInner.appendChild(mensajeDiv);
         }
     }
-
-
     // ==========================================
     // 7. ANIMACIONES AL HACER SCROLL (REVEAL)
     // ==========================================
@@ -450,6 +439,13 @@ document.addEventListener("DOMContentLoaded", function () {
 function closeThanksModal() {
     const thanksModal = document.getElementById("thanksModal");
     if (thanksModal) thanksModal.classList.add("hidden");
+}
+
+function mostrarModalAgradecimiento() {
+    const thanksModal = document.getElementById("thanksModal");
+    if (thanksModal) {
+        thanksModal.classList.remove("hidden");
+    }
 }
 
 window.toggleGiftDetails = function(type) {
