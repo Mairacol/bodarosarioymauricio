@@ -124,11 +124,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // ==========================================
-    // 5. GESTIÓN DE URL (CIVIL, RSVP E INVITADOS)
+    // 5. GESTIÓN DE URL Y RSVP DINÁMICO (COMPLETO)
     // ==========================================
     const urlParams = new URLSearchParams(window.location.search);
-    const venueParam = urlParams.get("venue");
-    const guestParam = urlParams.get("invitado") || urlParams.get("code");
+    const venueParam = urlParams.get("venue"); 
+    const tipoCeremonia = urlParams.get("ceremonia") || ""; 
+    
+    const rawParam = urlParams.get("invitado") || urlParams.get("code") || urlParams.get("nombre") || "";
+    const displayTitle = decodeURIComponent(rawParam).trim() || "Invitados";
     
     const civilBlock = document.querySelector('.venue-civil-block');
     const rsvpSection = document.getElementById("rsvpSection");
@@ -141,45 +144,282 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    if (guestParam && rsvpSection) {
-        rsvpSection.style.display = "block";
-        
-        const familyNameElem = document.getElementById("familyName");
-        const slotsElem = document.getElementById("slots");
-        const guestsContainer = document.getElementById("guests");
+    const totalSlots = parseInt(urlParams.get("pases") || urlParams.get("inv") || "1", 10);
 
-        const codigoInvitado = decodeURIComponent(guestParam).trim();
-        if (familyNameElem) familyNameElem.textContent = codigoInvitado;
-        if (slotsElem) slotsElem.textContent = "Lugares reservados: 2";
+    const muestraCivil = (venueParam === "cyf" || tipoCeremonia.includes("civil"));
+    const muestraIglesia = (tipoCeremonia.includes("iglesia") || tipoCeremonia.includes("todas"));
+
+    const familyNameEl = document.getElementById("familyName");
+    const slotsEl = document.getElementById("slots");
+    const guestLabelEl = document.getElementById("txtGuestLabel"); 
+    const guestsContainer = document.getElementById("guests");
+    const submitBtn = document.getElementById("submitBtn");
+    const formError = document.getElementById("formError");
+
+    if (rsvpSection) {
+        rsvpSection.style.display = "block";
+
+        if (familyNameEl) {
+            familyNameEl.textContent = displayTitle;
+        }
+        
+        if (guestLabelEl) {
+            if (totalSlots === 1) {
+                const generoDiscreto = urlParams.get("g") ? urlParams.get("g").toLowerCase() : "";
+                
+                if (generoDiscreto === "f") {
+                    guestLabelEl.textContent = "INVITADA";
+                } else if (generoDiscreto === "m") {
+                    guestLabelEl.textContent = "INVITADO";
+                } else {
+                    const nombreUnico = rawParam ? rawParam.trim().toUpperCase() : "";
+                    const nombresVaronesExcepcion = ["LUCAS", "MATIAS", "TOBIAS", "BAUTISTA", "JONAS", "NICOLAS", "TOMAS", "EZEQUIEL", "FRANCO", "JOAQUIN"];
+                    
+                    const esVaronExcepcion = nombresVaronesExcepcion.includes(nombreUnico);
+                    const terminaEnA = nombreUnico.endsWith('A');
+
+                    if (terminaEnA && !esVaronExcepcion) {
+                        guestLabelEl.textContent = "INVITADA";
+                    } else {
+                        guestLabelEl.textContent = "INVITADO";
+                    }
+                }
+            } else {
+                guestLabelEl.textContent = "INVITADOS";
+            }
+        }
+
+        if (slotsEl) {
+            slotsEl.textContent = totalSlots === 1 ? "1 LUGAR RESERVADO" : `${totalSlots} LUGARES RESERVADOS`;
+        }
 
         if (guestsContainer) {
-            guestsContainer.innerHTML = `
-                <div class="guest-input-group" style="margin-bottom: 20px; text-align: left;">
-                    <label style="display: block; font-size: 0.85rem; margin-bottom: 5px;">Asistencia:</label>
-                    <select class="guest-attendance" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); background: var(--bg-color);">
-                        <option value="yes">¡Sí, ahí estaré!</option>
-                        <option value="no">No podré asistir</option>
-                    </select>
-                </div>
-            `;
+            guestsContainer.innerHTML = ""; 
+
+            for (let i = 1; i <= totalSlots; i++) {
+                const guestCard = document.createElement("div");
+                guestCard.className = "guest-editorial-card";
+
+                let ceremoniasHTML = "";
+                if (muestraCivil || muestraIglesia) {
+                    ceremoniasHTML += `<div class="ceremonias-block">`;
+                    
+                    if (muestraCivil) {
+                        ceremoniasHTML += `
+                            <div class="ceremonia-row">
+                                <label class="editorial-label">¿Asistirá al Civil?</label>
+                                <div class="editorial-radio-group">
+                                    <label class="radio-pill">
+                                        <input type="radio" name="civil_${i}" value="Sí" checked> Sí
+                                    </label>
+                                    <label class="radio-pill">
+                                        <input type="radio" name="civil_${i}" value="No"> No
+                                    </label>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    if (muestraIglesia) {
+                        ceremoniasHTML += `
+                            <div class="ceremonia-row">
+                                <label class="editorial-label">¿Asistirá a la Iglesia?</label>
+                                <div class="editorial-radio-group">
+                                    <label class="radio-pill">
+                                        <input type="radio" name="iglesia_${i}" value="Sí" checked> Sí
+                                    </label>
+                                    <label class="radio-pill">
+                                        <input type="radio" name="iglesia_${i}" value="No"> No
+                                    </label>
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    ceremoniasHTML += `</div>`;
+                }
+
+                guestCard.innerHTML = `
+                    <div class="guest-card-top">
+                        <span class="guest-number">Invitado ${i}</span>
+                    </div>
+
+                    <div class="field-block">
+                        <input type="text" class="editorial-input guest-firstname" placeholder="Nombre" required>
+                    </div>
+
+                    <div class="field-block">
+                        <input type="text" class="editorial-input guest-lastname" placeholder="Apellido" required>
+                    </div>
+
+                    <div class="field-block">
+                        <label class="editorial-label">¿Asistirá a la Fiesta?</label>
+                        <div class="editorial-radio-group">
+                            <label class="radio-pill">
+                                <input type="radio" name="attendance_${i}" value="Sí" checked> Sí
+                            </label>
+                            <label class="radio-pill">
+                                <input type="radio" name="attendance_${i}" value="No"> No
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field-block menu-block" id="menuBlock_${i}">
+                        <label class="editorial-label">Menú</label>
+                        <select class="editorial-select guest-menu">
+                            <option value="" disabled selected>Seleccionar...</option>
+                            <option value="General">Menú General</option>
+                            <option value="Vegetariano">Vegetariano</option>
+                            <option value="Celíaco">Celíaco / Sin TACC</option>
+                            <option value="Vegano">Vegano</option>
+                        </select>
+                    </div>
+
+                    ${ceremoniasHTML}
+
+                    <div class="field-block">
+                        <input type="text" class="editorial-input guest-diet" placeholder="Mensaje para los novios (opcional)">
+                    </div>
+                `;
+                
+                guestsContainer.appendChild(guestCard);
+
+                const radioNo = guestCard.querySelector(`input[name="attendance_${i}"][value="No"]`);
+                const radioSi = guestCard.querySelector(`input[name="attendance_${i}"][value="Sí"]`);
+                const menuBlock = guestCard.querySelector(`#menuBlock_${i}`);
+                const menuSelect = guestCard.querySelector(".guest-menu");
+
+                radioNo.addEventListener('change', () => {
+                    menuSelect.value = "";
+                    menuSelect.required = false;
+                    menuBlock.style.display = 'none'; 
+                });
+
+                radioSi.addEventListener('change', () => {
+                    menuSelect.required = true;
+                    menuBlock.style.display = 'block'; 
+                });
+            }
         }
     }
 
-    const submitBtn = document.getElementById("submitBtn");
+
+    // ==========================================
+    // 6. ENVÍO DEL FORMULARIO A GOOGLE SHEETS
+    // ==========================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgtWIPiEETmrc3ZOT3ssYRGCMBu2dxKj9rlsvJOPT22i43SQ4g6RtGxaKAZnjK1ftIdw/exec";
+
     if (submitBtn) {
-        submitBtn.addEventListener("click", function () {
-            const thanksModal = document.getElementById("thanksModal");
-            if (thanksModal) thanksModal.classList.remove("hidden");
+        submitBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const botCheck = document.getElementById("validationCode")?.value || "";
+            if (botCheck !== "") return false;
+
+            if (formError) formError.style.display = "none";
+
+            const guestCards = document.querySelectorAll(".guest-editorial-card");
+            let allValid = true;
+            let rsvpData = [];
+
+            guestCards.forEach((card, index) => {
+                const firstNameInput = card.querySelector(".guest-firstname");
+                const lastNameInput = card.querySelector(".guest-lastname");
+                const attendanceInput = card.querySelector(`input[name="attendance_${index + 1}"]:checked`);
+                const civilInput = card.querySelector(`input[name="civil_${index + 1}"]:checked`);
+                const iglesiaInput = card.querySelector(`input[name="iglesia_${index + 1}"]:checked`);
+                const menuSelect = card.querySelector(".guest-menu");
+                const dietInput = card.querySelector(".guest-diet");
+
+                const isAttending = attendanceInput ? attendanceInput.value === "Sí" : true;
+
+                let firstNameValid = firstNameInput && !!firstNameInput.value.trim();
+                let lastNameValid = lastNameInput && !!lastNameInput.value.trim();
+                let menuValid = isAttending ? (menuSelect && !!menuSelect.value) : true;
+
+                if (!firstNameValid || !lastNameValid || !menuValid) {
+                    allValid = false;
+                }
+
+                rsvpData.push({
+                    nombre: firstNameInput ? firstNameInput.value.trim() : "",
+                    apellido: lastNameInput ? lastNameInput.value.trim() : "",
+                    asistenciaFiesta: attendanceInput ? attendanceInput.value : "Sí",
+                    asistenciaCivil: civilInput ? civilInput.value : "N/A",
+                    asistenciaIglesia: iglesiaInput ? iglesiaInput.value : "N/A",
+                    menu: isAttending && menuSelect ? menuSelect.value : "N/A",
+                    restricciones: dietInput ? dietInput.value.trim() : ""
+                });
+            });
+
+            if (!allValid) {
+                if (formError) {
+                    formError.style.display = "block";
+                    formError.textContent = "Por favor, completá los campos requeridos.";
+                }
+                return false;
+            }
+
+            const currentScroll = window.scrollY;
+
+            localStorage.setItem(`rsvp_confirmed_${displayTitle}`, "true");
+            limpiarInterfazRsvp();
+            mostrarModalAgradecimiento();
+            window.scrollTo({ top: currentScroll, behavior: 'instant' });
+
+            setTimeout(() => {
+                const payload = {
+                    familia: displayTitle,
+                    invitados: rsvpData
+                };
+
+                if (APPS_SCRIPT_URL) {
+                    fetch(APPS_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
+                        body: JSON.stringify(payload)
+                    }).catch(() => {});
+                }
+            }, 50);
+
+            return false;
         });
+    }
+
+    function limpiarInterfazRsvp() {
+        const guestsContainerEl = document.getElementById("guests");
+        const submitButtonEl = document.getElementById("submitBtn");
+        const headerBlockEl = document.querySelector(".rsvp-header-block");
+        const cardHeaderEl = document.querySelector(".rsvp-inner > .card");
+
+        if (guestsContainerEl) guestsContainerEl.style.display = "none";
+        if (submitButtonEl) submitButtonEl.style.display = "none";
+        if (headerBlockEl) headerBlockEl.style.display = "none";
+        if (cardHeaderEl) cardHeaderEl.style.display = "none";
+
+        const rsvpInner = document.querySelector('.rsvp-inner');
+        if (rsvpInner && !document.getElementById("graciasExito")) {
+            const mensajeDiv = document.createElement("div");
+            mensajeDiv.id = "graciasExito";
+            mensajeDiv.style.cssText = "text-align: center; padding: 40px 20px;";
+            mensajeDiv.innerHTML = `
+                <h3 style="font-family: var(--font-script); color: var(--text-charcoal); font-size: 2.8rem; margin-bottom: 15px; letter-spacing: 1px;">
+                    ¡Muchas Gracias!
+                </h3>
+                <p style="color: var(--olive-soft); font-size: 1.1rem; font-family: var(--font-serif); letter-spacing: 1px; font-style: italic;">Tu respuesta ya fue registrada con éxito.</p>
+            `;
+            rsvpInner.appendChild(mensajeDiv);
+        }
     }
 
 
     // ==========================================
-    // 6. ANIMACIONES AL HACER SCROLL (REVEAL)
+    // 7. ANIMACIONES AL HACER SCROLL (REVEAL)
     // ==========================================
     function triggerScrollAnimations() {
         const reveals = document.querySelectorAll(".reveal");
-        // Activa la primera sección de golpe al abrir
         if (reveals.length > 0) {
             reveals[0].classList.add("active");
         }
@@ -205,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // ==========================================
-// 7. FUNCIONES GLOBALES (FUERA DEL DOM)
+// 8. FUNCIONES GLOBALES (FUERA DEL DOM)
 // ==========================================
 function closeThanksModal() {
     const thanksModal = document.getElementById("thanksModal");

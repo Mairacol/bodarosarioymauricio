@@ -940,69 +940,283 @@ body {
     height: auto;
     object-fit: contain;
 }
-
 /* =========================================
-   SECCIÓN RSVP (CONFIRMACIÓN DE ASISTENCIA)
+   SECCIÓN RSVP (MINIMALISMO Y LUJO EDITORIAL)
    ========================================= */
 .rsvp {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.363);
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
-    padding: 70px 20px;
+    padding: 90px 20px;
     margin: 40px 0;
 }
 
 .rsvp-header-block {
-    margin-bottom: 35px;
+    margin-bottom: 45px;
     text-align: center;
 }
 
 .rsvp-subtitle {
-    font-size: 0.7rem;
-    letter-spacing: 4px;
+    font-size: 0.6rem;
+    letter-spacing: 5px;
     color: var(--olive-soft);
     margin-bottom: 15px;
     text-transform: uppercase;
+    font-weight: 300;
 }
 
-/* TÍTULO ACTUALIZADO A --font-script */
 .title-script {
     font-family: var(--font-script);
-    font-size: 2.8rem;
+    font-size: 3.2rem;
     color: var(--text-charcoal);
     margin-bottom: 10px;
+    font-weight: 300;
 }
 
-/* DESCRIPCIÓN ACTUALIZADA A --font-serif */
 .limit {
     font-family: var(--font-serif);
-    font-size: 0.85rem;
-    color: #666;
-    letter-spacing: 1px;
+    font-size: 0.8rem;
+    color: var(--olive-soft);
+    letter-spacing: 2px;
+    font-style: italic;
+    font-weight: 300;
 }
 
+/* Cabecera principal sin cajas */
 .card {
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    padding: 25px;
-    margin-bottom: 25px;
+    background: transparent;
+    border: none;
+    padding: 0 0 35px 0;
+    margin-bottom: 40px;
     text-align: center;
+    border-bottom: 1px solid rgba(227, 224, 216, 0.4);
 }
 
 .guest-label {
-    font-size: 0.65rem;
-    letter-spacing: 3px;
+    font-size: 0.6rem;
+    letter-spacing: 5px;
     color: var(--olive-soft);
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     text-transform: uppercase;
 }
 
 #familyName {
     font-family: var(--font-serif);
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--text-charcoal);
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+#slots {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--gold-accent);
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+/* Tarjeta individual de invitado: completamente integrada y limpia */
+.guest-editorial-card {
+    background: transparent;
+    border: none;
+    padding: 20px 0 50px 0;
+    margin-bottom: 15px;
+    text-align: center;
+    position: relative;
+}
+
+.guest-editorial-card:not(:last-child):after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 1px;
+    background-color: rgba(227, 224, 216, 0.4);
+}
+
+.guest-card-top {
+    margin-bottom: 25px;
+}
+
+.guest-number {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    color: var(--gold-accent);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 300;
+}
+
+.field-block {
+    margin-bottom: 32px;
+}
+
+/* Inputs y selects con una línea inferior muy sutil y elegante */
+.editorial-input, 
+.editorial-select {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 10px 0;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(42, 42, 42, 0.25) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-serif) !important;
+    font-size: 0.95rem;
+    color: var(--text-charcoal);
+    outline: none;
+    text-align: center;
+    box-shadow: none !important;
+    transition: border-color 0.4s ease;
+    font-weight: 300;
+}
+
+.editorial-input:focus, 
+.editorial-select:focus {
+    border-bottom: 1px solid var(--gold-accent) !important;
+}
+
+.editorial-input::placeholder {
+    color: #888888;
+    letter-spacing: 1.5px;
+    font-size: 0.82rem;
+    font-weight: 300;
+}
+
+.editorial-select {
+    color: var(--text-charcoal);
+    cursor: pointer;
+}
+
+.editorial-select option {
+    color: var(--text-charcoal);
+    background: var(--white);
+}
+
+/* Etiquetas minimalistas */
+.editorial-label {
+    font-family: var(--font-serif);
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--olive-soft);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 300;
+}
+
+/* Opciones de Sí / No limpias y flotantes */
+.editorial-radio-group {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin-top: 8px;
+}
+
+.radio-pill {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer;
+    font-family: var(--font-serif);
+    font-size: 0.8rem;
+    letter-spacing: 2.5px;
+    color: var(--text-charcoal);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: none !important;
+    transition: color 0.3s ease;
+    font-weight: 300;
+}
+
+.radio-pill input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--olive-soft);
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.radio-pill input[type="radio"]:checked {
+    border-color: var(--gold-accent);
+    background: var(--gold-accent);
+    box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.15);
+}
+
+.radio-pill:hover {
+    color: var(--gold-accent);
+}
+
+/* Bloque de ceremonias integrado de forma armónica */
+.ceremonias-block {
+    margin-top: 35px;
+    padding-top: 30px;
+    border-top: 1px dashed rgba(227, 224, 216, 0.4);
+}
+
+.ceremonia-row {
+    margin-bottom: 25px;
+}
+
+.ceremonia-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Botón de envío sutil y subrayado estilo editorial */
+.editorial-submit-btn {
+    display: table !important;
+    margin: 50px auto 0 auto !important;
+    padding: 6px 0 !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-family: var(--font-serif) !important;
+    font-size: 0.7rem !important;
+    font-weight: 300 !important;
+    letter-spacing: 4px !important;
+    color: var(--text-charcoal) !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+    background-image: linear-gradient(to right, var(--text-charcoal) 0%, var(--text-charcoal) 100%) !important;
+    background-repeat: no-repeat !important;
+    background-position: 0 100% !important;
+    background-size: 100% 1px !important;
+    transition: all 0.4s ease !important;
+}
+
+.editorial-submit-btn:hover {
+    color: var(--gold-accent) !important;
+    background-image: linear-gradient(to right, var(--gold-accent) 0%, var(--gold-accent) 100%) !important;
+    opacity: 0.9 !important;
+}
+
+/* Mensaje de error */
+.form-error {
+    font-family: var(--font-serif);
+    color: #a94442;
+    font-size: 0.75rem;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-align: center;
+    font-weight: 300;
 }
 
 /* =========================================
