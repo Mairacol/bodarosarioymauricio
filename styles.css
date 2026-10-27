@@ -9,15 +9,25 @@
     font-display: swap;
 }
 
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus,
+a:focus,
+input:focus,
+select:focus {
+    outline: none;
+}
 /* =========================================
    VARIABLES Y PALETA DE COLORES (EDITORIAL)
    Blanco roto, oliva suave, carbón y dorado
    ========================================= */
 :root {
-    --bg-color: #F9F8F6; /* Blanco roto / Marfil suave */
-    --text-charcoal: #2A2A2A; /* Carbón suave */
-    --olive-soft: #7C8673; /* Oliva suave */
-    --gold-accent: #C5A059; /* Detalles en dorado */
+    --bg-color: #F9F8F6; 
+    --text-charcoal: #2A2A2A; 
+    --olive-soft: #7C8673; 
+    --gold-accent: #C5A059;
     --white: #FFFFFF;
     --border-color: #E3E0D8;
     
@@ -70,7 +80,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: transparent; /* Transparente para que no parpadee en blanco */
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,7 +90,6 @@ body {
     transition: visibility 0.8s ease;
 }
 
-/* Contenedor de las puertas: Ocupa toda la pantalla con el color de fondo de tu web */
 .intro-door-container {
     position: absolute;
     top: 0;
@@ -91,7 +100,7 @@ body {
     justify-content: space-between;
     overflow: hidden;
     perspective: 1500px;
-    z-index: 10; /* Detrás de la postal pero cubriendo la pantalla */
+    z-index: 10; 
     background-color: transparent;
     pointer-events: none;
 }
