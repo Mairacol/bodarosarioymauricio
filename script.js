@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCountdown();
 
 
-  // ==========================================
+    // ==========================================
     // 5. GESTIÓN DE URL Y RSVP DINÁMICO (COMPLETO)
     // ==========================================
     const urlParams = new URLSearchParams(window.location.search);
@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tipoCeremonia = urlParams.get("ceremonia") || ""; 
     
     const rawParam = urlParams.get("invitado") || urlParams.get("code") || urlParams.get("nombre") || "";
+    const displayTitle = rawParam.trim() ? decodeURIComponent(rawParam).trim() : "Invitados";
     
     const civilBlock = document.querySelector('.venue-civil-block');
     const rsvpSection = document.getElementById("rsvpSection");
@@ -141,12 +142,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // EVALUACIÓN DE LINK PERSONALIZADO PARA RSVP:
     if (rawParam.trim() !== "") {
-        // Si entra desde link personalizado (ej: roymauri.com/?invitado=Familia+Perez)
+        // Si entra desde link personalizado
         if (rsvpSection) {
             rsvpSection.style.display = "block";
         }
 
-        const displayTitle = decodeURIComponent(rawParam).trim();
         const totalSlots = parseInt(urlParams.get("pases") || urlParams.get("inv") || "1", 10);
 
         const muestraCivil = (venueParam === "cyf" || tipoCeremonia.includes("civil"));
@@ -300,16 +300,19 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     } else {
-       
+        // Si entra directo sin parámetros
         if (rsvpSection) {
             rsvpSection.style.display = "none";
         }
     }
 
+
     // ==========================================
     // 6. ENVÍO DEL FORMULARIO A GOOGLE SHEETS
     // ==========================================
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgtWIPiEETmrc3ZOT3ssYRGCMBu2dxKj9rlsvJOPT22i43SQ4g6RtGxaKAZnjK1ftIdw/exec";
+    const submitBtn = document.getElementById("submitBtn");
+    const formError = document.getElementById("formError");
 
     if (submitBtn) {
         submitBtn.addEventListener("click", function (e) {
@@ -446,7 +449,7 @@ function closeThanksModal() {
     const thanksModal = document.getElementById("thanksModal");
     if (thanksModal) {
         thanksModal.classList.add("hidden");
-        thanksModal.style.display = "none"; // Asegura que se oculte por completo
+        thanksModal.style.display = "none";
     }
 }
 
@@ -454,7 +457,7 @@ function mostrarModalAgradecimiento() {
     const thanksModal = document.getElementById("thanksModal");
     if (thanksModal) {
         thanksModal.classList.remove("hidden");
-        thanksModal.style.display = "flex"; // Asegura que aparezca centrado
+        thanksModal.style.display = "flex";
     }
 }
 
