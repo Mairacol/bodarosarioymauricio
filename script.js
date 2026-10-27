@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCountdown();
 
 
-    // ==========================================
+  // ==========================================
     // 5. GESTIÓN DE URL Y RSVP DINÁMICO (COMPLETO)
     // ==========================================
     const urlParams = new URLSearchParams(window.location.search);
@@ -127,7 +127,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const tipoCeremonia = urlParams.get("ceremonia") || ""; 
     
     const rawParam = urlParams.get("invitado") || urlParams.get("code") || urlParams.get("nombre") || "";
-    const displayTitle = decodeURIComponent(rawParam).trim() || "Invitados";
     
     const civilBlock = document.querySelector('.venue-civil-block');
     const rsvpSection = document.getElementById("rsvpSection");
@@ -140,20 +139,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    const totalSlots = parseInt(urlParams.get("pases") || urlParams.get("inv") || "1", 10);
+    // EVALUACIÓN DE LINK PERSONALIZADO PARA RSVP:
+    if (rawParam.trim() !== "") {
+        // Si entra desde link personalizado (ej: roymauri.com/?invitado=Familia+Perez)
+        if (rsvpSection) {
+            rsvpSection.style.display = "block";
+        }
 
-    const muestraCivil = (venueParam === "cyf" || tipoCeremonia.includes("civil"));
-    const muestraIglesia = (tipoCeremonia.includes("iglesia") || tipoCeremonia.includes("todas"));
+        const displayTitle = decodeURIComponent(rawParam).trim();
+        const totalSlots = parseInt(urlParams.get("pases") || urlParams.get("inv") || "1", 10);
 
-    const familyNameEl = document.getElementById("familyName");
-    const slotsEl = document.getElementById("slots");
-    const guestLabelEl = document.getElementById("txtGuestLabel"); 
-    const guestsContainer = document.getElementById("guests");
-    const submitBtn = document.getElementById("submitBtn");
-    const formError = document.getElementById("formError");
+        const muestraCivil = (venueParam === "cyf" || tipoCeremonia.includes("civil"));
+        const muestraIglesia = (tipoCeremonia.includes("iglesia") || tipoCeremonia.includes("todas"));
 
-    if (rsvpSection) {
-        rsvpSection.style.display = "block";
+        const familyNameEl = document.getElementById("familyName");
+        const slotsEl = document.getElementById("slots");
+        const guestLabelEl = document.getElementById("txtGuestLabel"); 
+        const guestsContainer = document.getElementById("guests");
 
         if (familyNameEl) {
             familyNameEl.textContent = displayTitle;
@@ -297,8 +299,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
         }
+    } else {
+       
+        if (rsvpSection) {
+            rsvpSection.style.display = "none";
+        }
     }
-
 
     // ==========================================
     // 6. ENVÍO DEL FORMULARIO A GOOGLE SHEETS
