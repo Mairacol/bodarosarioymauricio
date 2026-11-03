@@ -820,7 +820,7 @@ body {
 }
 
 /* =========================================
-   ESTILOS SECCIÓN DRESS CODE
+   ESTILOS SECCIÓN DRESS CODE (AJUSTADOS)
    ========================================= */
 .dresscode-section {
     position: relative;
@@ -831,7 +831,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
     box-sizing: border-box;
 }
 
@@ -840,8 +840,8 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 320px;
-    gap: 15px;
+    max-width: 750px; 
+    gap: 12px;
 }
 
 .dresscode-title-script {
@@ -852,30 +852,88 @@ body {
     margin: 0;
 }
 
-/* DESCRIPCIÓN ACTUALIZADA A --font-serif */
 .dresscode-main-type {
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--olive-soft);
     letter-spacing: 2px;
-    margin: 0 0 10px 0;
+    margin: 0 0 15px 0;
     text-transform: uppercase;
 }
 
-.dresscode-single-wrapper {
-    width: 100%;
-    max-width: 260px; 
-    margin: 0 auto;
+
+.dresscode-grid {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    gap: 3.5rem;
+    margin: 1.5rem 0;
+    width: 100%;
 }
 
-.dresscode-single-illus {
+.dresscode-column {
+    flex: 1;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.dresscode-subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    color: #4a4a4a;
+}
+
+.dresscode-img-wrapper {
     width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.dresscode-illus {
+    width: 100%;
+    max-width: 260px; 
     height: auto;
     object-fit: contain;
+}
+
+
+.dresscode-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.dresscode-list li {
+    font-size: 0.82rem; 
+    line-height: 1.45;
+    margin-bottom: 0.35rem;
+    color: #555;
+}
+
+@media (max-width: 640px) {
+    .dresscode-container {
+        max-width: 100%;
+    }
+
+    .dresscode-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .dresscode-column {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 /* =========================================
