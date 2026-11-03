@@ -467,3 +467,20 @@ window.toggleGiftDetails = function(type) {
         detailsElem.classList.toggle("hidden");
     }
 };
+function copiarAlPortapapeles(idElemento, elementoLink) {
+    const texto = document.getElementById(idElemento).innerText;
+
+    navigator.clipboard.writeText(texto).then(() => {
+        const textoOriginal = elementoLink.innerText;
+        
+        elementoLink.innerText = "¡Copiado!";
+        elementoLink.classList.add("copied");
+
+        setTimeout(() => {
+            elementoLink.innerText = textoOriginal;
+            elementoLink.classList.remove("copied");
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al intentar copiar: ', err);
+    });
+}

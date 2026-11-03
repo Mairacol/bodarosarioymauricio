@@ -1007,6 +1007,29 @@ body {
     height: auto;
     object-fit: contain;
 }
+/* Estilo minimalista para los enlaces de copiar */
+.copy-link {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 0.85em;
+    color: inherit; /* Hereda el color del texto de tu invitación */
+    opacity: 0.75;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.copy-link:hover {
+    opacity: 1;
+}
+
+/* Efecto sutil cuando se copia con éxito */
+.copy-link.copied {
+    color: #2e7d32; /* Un verde sutil o puedes dejarlo igual */
+    opacity: 1;
+    text-decoration: none;
+    font-weight: 500;
+}
 /* =========================================
    SECCIÓN RSVP (MINIMALISMO Y LUJO EDITORIAL)
    ========================================= */
