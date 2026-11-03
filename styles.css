@@ -309,7 +309,7 @@ body {
 
 .ampersand-inline {
     font-family: var(--font-script);
-    color: var(--gold-accent);
+    color: var(--text-charcoal);
     font-size: 1.8rem;
     display: inline;
     margin: 0 4px;
