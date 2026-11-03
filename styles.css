@@ -914,6 +914,7 @@ body {
 
 .dresscode-list li {
     font-size: 0.82rem; 
+    font-family: var(--font-serif);
     line-height: 1.45;
     margin-bottom: 0.35rem;
     color: #555;
